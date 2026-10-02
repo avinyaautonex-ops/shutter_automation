@@ -1,177 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brand Navigation Header</title>
-  <style>
-    :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --accent-color: #06b6d4;
-      --accent-glow: #38bdf8;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVINYA AUTONEX - Smart Shutter Automation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at center, #1b2433 0%, #0d1117 100%);
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        /* Responsive Wrapper & Scaling Container */
+        .app-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-    /* Navigation Bar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: rgba(30, 41, 59, 0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+        /* Mobile Frame Wrapper (Adaptive for Mobile, Tablets, and Laptops) */
+        .mobile-frame {
+            width: 100%;
+            max-width: 420px;
+            height: min(84vh, 780px);
+            background: #161b22;
+            border-radius: 40px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255,255,255,0.05);
+            border: 8px solid #30363d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px 12px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* Brand Logo Container */
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: var(--text-main);
-      font-weight: 700;
-      font-size: 1.25rem;
-      letter-spacing: 0.5px;
-      transition: opacity 0.2s ease;
-    }
+        @media (min-width: 768px) {
+            .mobile-frame {
+                max-width: 440px;
+                height: 800px;
+                border-width: 10px;
+                padding: 16px 14px;
+            }
+        }
 
-    .brand-logo:hover {
-      opacity: 0.9;
-    }
+        /* Speaker Notch at Top */
+        .mobile-notch {
+            width: 90px;
+            height: 14px;
+            background: #0d1117;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
 
-    /* SVG Vector Logo */
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.4));
-    }
+        /* Scene Container (Shop Front View) */
+        .scene-container {
+            width: 100%;
+            height: 38%;
+            min-height: 220px;
+            background: #0b0f19;
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
+            margin-bottom: 12px;
+            border: 1px solid #30363d;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .brand-text span {
-      color: var(--accent-color);
-    }
+        /* Shop Storefront Interior Background (Visible behind the shutter) */
+        .shop-interior {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            filter: brightness(0.65) contrast(1.1);
+        }
 
-    /* Nav Links */
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
+        /* Roll-up Metal Shutter */
+        .shutter-curtain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #4b5563 0%, #9ca3af 50%, #4b5563 100%);
+            background-image: repeating-linear-gradient(0deg, #374151, #374151 7px, #1f2937 7px, #1f2937 11px);
+            z-index: 3;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+            transition: height 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: top center;
+            border-bottom: 4px solid #111827;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
+        /* Stamped Branding Plaque directly on the Shutter matching reference logo */
+        .shutter-branding {
+            background: rgba(13, 17, 23, 0.88);
+            border: 2px solid #475569;
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.1);
+            pointer-events: none;
+            backdrop-filter: blur(2px);
+        }
 
-    .nav-links a:hover {
-      color: var(--accent-glow);
-    }
+        .shutter-logo-top {
+            font-size: 0.55rem;
+            letter-spacing: 5px;
+            color: #e2e8f0;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
 
-    /* CTA Button */
-    .btn-cta {
-      background: linear-gradient(135deg, var(--accent-color), #2563eb);
-      color: #ffffff;
-      padding: 0.5rem 1.25rem;
-      border-radius: 8px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+        .shutter-logo-main {
+            font-size: 1.25rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+        }
 
-    .btn-cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
-    }
+        .shutter-logo-main .red-arrows {
+            color: #ef4444;
+            display: inline-flex;
+            letter-spacing: -2px;
+            font-weight: 900;
+        }
 
-    /* Hero Preview Section */
-    .hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 2rem;
-    }
+        .shutter-logo-tagline {
+            font-size: 0.38rem;
+            letter-spacing: 2.5px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-top: 3px;
+            font-weight: 500;
+        }
 
-    .hero-title {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      max-width: 600px;
-    }
+        /* Shutter Open State (Retracted to the Top) */
+        .scene-container.open .shutter-curtain {
+            height: 15px;
+        }
 
-    .hero-subtitle {
-      color: var(--text-muted);
-      max-width: 500px;
-      line-height: 1.6;
-    }
+        /* Cozy Realistic Keyfob Remote Housing */
+        .remote-wrapper {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 4px;
+        }
 
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-    }
-  </style>
+        .remote {
+            background: linear-gradient(160deg, #28303d 0%, #171c24 100%);
+            padding: 16px 18px;
+            border-radius: 28px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.12), inset 0 -2px 5px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 235px;
+            border: 2px solid #3d4756;
+            position: relative;
+        }
+
+        /* Metal Keychain Strap Loop */
+        .remote::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 11px;
+            border: 3px solid #6b7280;
+            border-bottom: none;
+            border-radius: 12px 12px 0 0;
+            background: #171c24;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.4);
+        }
+
+        /* Top Brand Label matching reference logo */
+        .remote-brand-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 6px;
+            text-align: center;
+        }
+
+        .remote-logo-top {
+            font-size: 0.38rem;
+            letter-spacing: 2.5px;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .remote-logo-main {
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+        }
+
+        .remote-logo-main .red-arrows {
+            color: #ef4444;
+            letter-spacing: -1.5px;
+        }
+
+        /* Miniature LCD Status Display */
+        .lcd-screen {
+            background: #06090f;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            width: 100%;
+            padding: 6px 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
+        }
+
+        .lcd-label {
+            font-size: 0.38rem;
+            color: #64748b;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .lcd-status {
+            font-size: 0.48rem;
+            font-family: monospace;
+            font-weight: 700;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+
+        /* Cozy Soft-Touch Tactile Buttons */
+        .remote-btn {
+            width: 100%;
+            height: 40px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 20px;
+            color: #f1f5f9;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+            background: linear-gradient(145deg, #334155, #1e293b);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.15), inset 0 -2px 4px rgba(0,0,0,0.4);
+            transition: transform 0.08s ease, background 0.08s ease, box-shadow 0.08s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: 1px;
+            border: 1px solid #475569;
+            user-select: none;
+        }
+
+        .remote-btn:active, .remote-btn.clicked {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.7), inset 0 3px 5px rgba(0,0,0,0.8);
+            background: linear-gradient(145deg, #0f172a, #1e293b);
+        }
+
+        .btn-open .icon { color: #4ade80; text-shadow: 0 0 6px rgba(74,222,128,0.5); }
+        .btn-stop .icon { color: #f87171; text-shadow: 0 0 6px rgba(248,113,113,0.5); }
+        .btn-close .icon { color: #facc15; text-shadow: 0 0 6px rgba(250,204,21,0.5); }
+    </style>
 </head>
 <body>
 
-  <header class="navbar">
-    <!-- Brand Logo Section -->
-    <a href="#" class="brand-logo">
-      <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100" height="100" rx="20" fill="url(#logo-grad)"/>
-        <path d="M30 30L50 18L70 30V70L50 82L30 70V30Z" stroke="#06b6d4" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M50 18V82" stroke="#38bdf8" stroke-width="4" stroke-dasharray="4 4"/>
-        <circle cx="50" cy="50" r="12" fill="#06b6d4"/>
-        <defs>
-          <linearGradient id="logo-grad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#1e293b"/>
-            <stop offset="1" stop-color="#0f172a"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <div class="brand-text">AURA<span>TECH</span></div>
-    </a>
+    <div class="app-wrapper">
+        <div class="mobile-frame">
+            <div class="mobile-notch"></div>
 
-    <!-- Navigation Links -->
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#solutions">Solutions</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
+            <!-- Shop Shutter Simulation Environment -->
+            <div class="scene-container" id="sceneContainer">
+                <div class="shop-interior"></div>
+                
+                <div class="shutter-curtain" id="shutterCurtain">
+                    <!-- Corrected Stamped Brand Plaque matching reference logo -->
+                    <div class="shutter-branding">
+                        <div class="shutter-logo-top">A V I N Y A</div>
+                        <div class="shutter-logo-main">AUTONE<span class="red-arrows">&gt;&gt;</span>X</div>
+                        <div class="shutter-logo-tagline">SMART LIVING REDEFINED</div>
+                    </div>
+                </div>
+            </div>
 
-    <button class="btn-cta">Get Started</button>
-  </header>
+            <!-- Cozy Realistic Keyfob Remote Control UI -->
+            <div class="remote-wrapper">
+                <div class="remote">
+                    <div class="remote-brand-header">
+                        <div class="remote-logo-top">A V I N Y A</div>
+                        <div class="remote-logo-main">AUTONE<span class="red-arrows">&gt;&gt;</span>X</div>
+                    </div>
 
-  <main class="hero">
-    <h1 class="hero-title">Integrated Design & Automation</h1>
-    <p class="hero-subtitle">Easily swap out the SVG paths in the logo markup above to integrate your custom brand vector icon or artwork.</p>
-  </main>
+                    <!-- Live Mini LCD Screen -->
+                    <div class="lcd-screen">
+                        <span class="lcd-label">SYS STATUS</span>
+                        <span class="lcd-status" id="lcdStatus">READY</span>
+                    </div>
+                    
+                    <button class="remote-btn btn-open" id="btnOpen" onclick="triggerShutter('open')">
+                        <span class="icon">▲</span> OPEN
+                    </button>
+                    <button class="remote-btn btn-stop" id="btnStop" onclick="triggerShutter('stop')">
+                        <span class="icon">■</span> STOP
+                    </button>
+                    <button class="remote-btn btn-close" id="btnClose" onclick="triggerShutter('close')">
+                        <span class="icon">▼</span> CLOSE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        const sceneContainer = document.getElementById('sceneContainer');
+        const shutterCurtain = document.getElementById('shutterCurtain');
+        const lcdStatus = document.getElementById('lcdStatus');
+
+        let audioCtx = null;
+        let beepInterval = null;
+
+        function playBeepSound() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            stopBeepSound();
+
+            let beepCount = 0;
+            beepInterval = setInterval(() => {
+                if (!audioCtx || beepCount > 5) {
+                    stopBeepSound();
+                    return;
+                }
+                try {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.1);
+                    beepCount++;
+                } catch (e) {
+                    console.log(e);
+                }
+            }, 400);
+        }
+
+        function stopBeepSound() {
+            if (beepInterval) {
+                clearInterval(beepInterval);
+                beepInterval = null;
+            }
+        }
+
+        function triggerShutter(action) {
+            if ("vibrate" in navigator) {
+                navigator.vibrate(40);
+            }
+
+            const btnId = action === 'open' ? 'btnOpen' : action === 'stop' ? 'btnStop' : 'btnClose';
+            const btnElement = document.getElementById(btnId);
+            btnElement.classList.add('clicked');
+            setTimeout(() => btnElement.classList.remove('clicked'), 150);
+
+            if (action === 'open') {
+                stopBeepSound();
+                shutterCurtain.style.transition = 'height 2.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                shutterCurtain.style.height = '';
+                sceneContainer.classList.add('open');
+                
+                lcdStatus.textContent = 'OPENING...';
+                playBeepSound();
+                setTimeout(() => { lcdStatus.textContent = 'OPENED'; }, 2500);
+            } 
+            else if (action === 'close') {
+                stopBeepSound();
+                shutterCurtain.style.transition = 'height 2.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                shutterCurtain.style.height = '';
+                sceneContainer.classList.remove('open');
+                
+                lcdStatus.textContent = 'CLOSING...';
+                playBeepSound();
+                setTimeout(() => { lcdStatus.textContent = 'SECURED'; }, 2500);
+            } 
+            else if (action === 'stop') {
+                stopBeepSound();
+
+                const currentHeight = window.getComputedStyle(shutterCurtain).height;
+                shutterCurtain.style.transition = 'none';
+                shutterCurtain.style.height = currentHeight;
+
+                lcdStatus.textContent = 'HALTED';
+            }
+        }
+    </script>
 </body>
 </html>
